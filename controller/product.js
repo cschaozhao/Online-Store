@@ -10,7 +10,7 @@ module.exports = {
     } = urlParams;
 
     let sql = "select * from products where 1=1";
-    
+
     if (name) {
       sql += " and name=?";
     }
@@ -27,12 +27,15 @@ module.exports = {
 
   async addProduct(productObj) {
     let {
-      name,
+      product_name,
+      description,
+      catagory,
       price,
-      description
+      quantity
     } = productObj;
-    let sql = "insert into products (name, price, description) values (?,?,?)";
-    let resultData = await query(sql, [name, price, description]);
+    console.log(description);
+    let sql = "insert into products (product_name, description, catagory, price, quantity) values (?,?,?,?,?)";
+    let resultData = await query(sql, [product_name, description, catagory, price, quantity]);
     if (resultData) {
       return {
         msg: 'Success'

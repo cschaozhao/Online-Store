@@ -1,6 +1,6 @@
 const url = require("url");
 const {
-  getProducts,
+  getProductList,
   addProduct,
   updateProduct,
   deleteProduct
@@ -12,13 +12,14 @@ function handleRequest(req, res) {
   let method = req.method;
 
   if (method === 'GET') {
-    if (urlObj.pathname === '/') {
+    if (urlObj.pathname === '/a') {
       let resultData = getProductList(urlObj.query);
       return resultData;
     } else if (urlObj.pathname === '/') {
-
+      return
     }
   } else if (method === 'POST') {
+
     if (urlObj.pathname === '/deleteProduct') {
       let resultData = deleteProduct(urlObj.query.id);
       return resultData;
@@ -26,20 +27,20 @@ function handleRequest(req, res) {
       let resultData = updateProduct(urlObj.query.id, req.body);
       return resultData;
     } else if (urlObj.pathname === '/addProduct') {
-      let resultData = updateProduct(req.body);
+      let resultData = addProduct(req.body);
       return resultData;
     }
   } else if (method === 'DELETE') {
     if (urlObj.pathname === '/') {
-
+      console.log("a");
     } else if (urlObj.pathname === '/') {
-
+      console.log('b');
     }
   } else {
     if (urlObj.pathname === '/') {
-
+      console.log('c');
     } else if (urlObj.pathname === '/') {
-
+      console.log('d');
     }
   }
 }

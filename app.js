@@ -10,8 +10,7 @@ const router = require('./router/index');
 const getPostData = (req) => {
   return new Promise((resolve, reject) => {
     if (req.method !== 'POST') {
-      resolve({});
-      return;
+      resolve({'not':"not"});
     }
     let postData = '';
     req.on('data', chunk => {
@@ -33,6 +32,9 @@ const webServer = http.createServer((req, res) => {
   });
 
   getPostData(req).then((data) => {
+    if(data === {'not':"not"}){
+        router(req, res);
+    }
     req.body = data;
     let result = router(req, res);
     if (result) {
