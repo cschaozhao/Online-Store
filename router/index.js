@@ -12,7 +12,7 @@ function handleRequest(req, res) {
   let method = req.method;
 
   if (method === 'GET') {
-    if (urlObj.pathname === '/a') {
+    if (urlObj.pathname === '/showProducts') {
       let resultData = getProductList(urlObj.query);
       return resultData;
     } else if (urlObj.pathname === '/') {

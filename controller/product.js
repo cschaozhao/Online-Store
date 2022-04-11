@@ -4,24 +4,42 @@ module.exports = {
 
   async getProductList(urlParams) {
     let {
-      name,
-      price,
-      catagory
+      product_name,
+      price_low,
+      price_high,
+      size,
+      catagory,
+      customer_cata
     } = urlParams;
-
+    params = []
+    console.log(urlParams);
     let sql = "select * from products where 1=1";
 
-    if (name) {
-      sql += " and name=?";
+    if (product_name) {
+      sql += " and product_name like ?";
+      params.push("%"+product_name+"%");
     }
-    if (price) {
-      sql += " and price=?";
+    if (price_low) {
+      sql += " and price>=?";
+      params.push(price_low);
     }
-    if (catagory) {
-      sql += " and catagory=?";
+    if (price_high) {
+      sql += " and price<=?";
+      params.push(price_high);
     }
-
-    let resultData = await query(sql, [name, price, catagory]);
+    if(size){
+      sql += " and size=?";
+      params.push(size);
+    }
+    if(catagory){
+      sql += " and catagory=?"
+      params.push(catagory);
+    }
+    if(customer_cata){
+      sql += " and customer_cata=?"
+      params.push(customer_cata);
+    }
+    let resultData = await query(sql, params);
     return resultData;
   },
 
