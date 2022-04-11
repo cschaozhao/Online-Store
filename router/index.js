@@ -6,6 +6,11 @@ const {
   deleteProduct
 } = require("../controller/product")
 
+const {
+  addToCart
+} = require("../controller/cart")
+
+
 function handleRequest(req, res) {
 
   let urlObj = url.parse(req.url, true);
@@ -28,6 +33,10 @@ function handleRequest(req, res) {
       return resultData;
     } else if (urlObj.pathname === '/addProduct') {
       let resultData = addProduct(req.body);
+      return resultData;
+    }
+    else if (urlObj.pathname === '/addToCart') {
+      let resultData = addToCart(req.body);
       return resultData;
     }
   } else if (method === 'DELETE') {
