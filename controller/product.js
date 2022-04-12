@@ -44,23 +44,28 @@ module.exports = {
   },
 
   async addProduct(productObj) {
-    let {
+    let{
       product_name,
       description,
+      SKU,
       catagory,
       price,
-      quantity
+      stock,
+      size,
+      reviews,
+      customer_cata
     } = productObj;
-    console.log(description);
-    let sql = "insert into products (product_name, description, catagory, price, quantity) values (?,?,?,?,?)";
-    let resultData = await query(sql, [product_name, description, catagory, price, quantity]);
-    if (resultData) {
-      return {
-        msg: 'Success'
+
+    let sql = "insert into products( product_name, description, SKU, catagory, price, stock, size, reviews, customer_cata) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+    let resultData = await query(sql, [ product_name,description, SKU, catagory, price, stock, size, reviews, customer_cata]);
+    if(resultData){
+      return{
+        msg:'Success'
       }
-    } else {
-      return {
-        msg: "Fail"
+    }
+    else{
+      return{
+        msg:"Fail"
       }
     }
   },
