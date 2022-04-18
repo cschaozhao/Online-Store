@@ -32,43 +32,25 @@ const getPostData = (req) => {
 
 function render(req, res, resultData) {
 
-  const regExpEmployees = new RegExp('^\/employees\/.*','i');
+  const regExpEmployees = new RegExp('^\/employees\/.*', 'i');
   const regExpProducts = new RegExp('^\/showProducts.*');
 
-  if(req.url.match(/.css$/)){
-    let cssPath = path.join(__dirname,"public",req.url);
-    let cssReadStream = fs.createReadStream(cssPath,"UTF-8");
-    res.statusCode = 200;
-    res.setHeader("Content-Type","text/css");
-    cssReadStream.pipe(res);
-  }
-
-  if(req.url.match(/.js$/)){
-    let jsPath = path.join(__dirname,"public",req.url);
-    let jsReadStream = fs.createReadStream(jsPath,"UTF-8");
-    res.statusCode = 200;
-    res.setHeader("Content-Type","application/javascript");
-    cssReadStream.pipe(res);
-  }
-
-  if(regExpProducts.test(req.url)){
+  if (regExpProducts.test(req.url)) {
 
     res.writeHead(301, {
       'content-type': 'text/html;charset=UTF-8'
     });
 
     const result = JSON.parse(JSON.stringify(resultData));
-
     fs.readFile('public/displayProducts.html', 'utf8', (err, data) => {
       if (err) {
         console.log(err);
       }
-      console.log(data);
       res.write(data);
       res.write("<table>");
-      for(let i = 0; i < result.length; i += 4){
+      for (let i = 0; i < result.length; i += 4) {
         res.write("<tr>");
-        for(let j = 0; j < 4; j++){
+        for (let j = 0; j < 4 && i + j < result.length; j++) {
           res.write("<td width = '70'>");
           res.write(result[i + j]["product_name"]);
           res.write("  <br>  " + "Price:" + result[i + j]["price"]);
@@ -79,15 +61,16 @@ function render(req, res, resultData) {
       res.write("</table>");
       res.write("</body>");
       res.end("</html>");
+
     });
   }
-
 }
 
 
 const webServer = http.createServer((req, res) => {
   let urlObj = url.parse(req.url, true);
   let method = req.method;
+
   if (urlObj.pathname === '/' && method == 'GET') {
     res.writeHead(200, {
       'content-type': 'text/html'
@@ -98,6 +81,20 @@ const webServer = http.createServer((req, res) => {
       }
       res.end(data);
     });
+
+  } else if (req.url.match(/.css$/)) {
+    let cssPath = path.join(__dirname, "public/css", req.url);
+    let cssReadStream = fs.createReadStream(cssPath, "UTF-8");
+    res.statusCode = 200;
+    res.setHeader("Content-Type", "text/css");
+    cssReadStream.pipe(res);
+
+  } else if (req.url.match(/.js$/)) {
+    let jsPath = path.join(__dirname, "public", req.url);
+    let jsReadStream = fs.createReadStream(jsPath, "UTF-8");
+    res.statusCode = 200;
+    res.setHeader("Content-Type", "application/javascript");
+    cssReadStream.pipe(res);
 
   } else {
     res.writeHead(301, {
@@ -110,6 +107,7 @@ const webServer = http.createServer((req, res) => {
         result.then(resultData => {
           render(req, res, resultData);
         });
+
       } else {
         res.writeHead(404, {
           'content-type': 'text/html'

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>add product</title>
+  </head>
+  <body>
+    <h1>Add a product</h1>
+    <form action="http://localhost:3000/addProduct" id="AddProductsForm" class="fh5co-form animate-box" method="post" data-animate-effect="fadeInLeft">
+      
+      <div class="form-group">
+        <label for="product_name" class="sr-only">Name</label>
+        <input type = "text" id = "product_name" name = "product_name" placeholder="Username" autocomplete="off">
+      </div>
+      
+      <div class="form-group">
+        <label for="description" class="sr-only">Description</label>
+        <input type = "text" id = "description" name = "description" placeholder="description" autocomplete="off">
+      </div>
+
+      <div class="form-group">
+        <label for="SKU" class="sr-only">SKU</label>
+        <input type = "text" id = "SKU" name = "SKU" placeholder="SKU" autocomplete="off">
+      </div>
+      
+      <div class="form-group">
+        <label for="catagory" class="sr-only">Catagory</label>
+        <input type = "text" id = "catagory" name = "catagory" placeholder="catagory" autocomplete="off">
+      </div>
+     
+      <div class="form-group">
+        <label for="price" class="sr-only">Price</label>
+        <input type = "text" id = "price" name = "price" placeholder="price" autocomplete="off">
+      </div>
+      
+      <div class="form-group">
+        <label for="price" class="sr-only">Stock</label>
+        <input type = "text" id = "stock" name = "stock" placeholder="stock" autocomplete="off">
+      </div>
+      
+      <div class="form-group">
+        <label for="size" class="sr-only">Size</label>
+        <input type = "text" id = "size" name = "size" placeholder="size" autocomplete="off">
+      </div>
+      
+      <div class="form-group">
+        <input value="Submit" type="button" onclick="submitform()">
+        
+      </div>
+
+    </form>
+
+    
+    <script type="text/javascript">
+      function submitform() {
+
+        var product_name = document.getElementById("product_name").value;
+        var description = document.getElementById("description").value;
+        var SKU = document.getElementById("SKU").value;
+        var catagory = document.getElementById("catagory").value;
+        var price = document.getElementById("price").value;
+        var stock = document.getElementById("stock").value;
+        var size = document.getElementById("size").value;
+        
+        alert("Sending Json");
+        var xhr = new XMLHttpRequest();
+        let form = document.forms[0];
+        xhr.open(form.method, form.action, true);
+        xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+        var j = {
+          "product_name": product_name,
+          "description": description,
+          "SKU": SKU,
+          "catagory": catagory,
+          "price": price,
+          "stock": stock,
+          "size": size
+        };
+        xhr.send(JSON.stringify(j));
+      }
+    </script>
+  </body>
+</html>
