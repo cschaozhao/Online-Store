@@ -1,4 +1,8 @@
 const url = require("url");
+const fs = require("fs");
+const path = require("path");
+
+
 const {
   getProductList,
   addProduct,
@@ -13,6 +17,7 @@ const {
 
 function handleRequest(req, res) {
 
+
   let urlObj = url.parse(req.url, true);
   let method = req.method;
 
@@ -20,8 +25,27 @@ function handleRequest(req, res) {
     if (urlObj.pathname === '/showProducts') {
       let resultData = getProductList(urlObj.query);
       return resultData;
+
     } else if (urlObj.pathname === '/') {
-      return
+      // res.writeHead(301, {
+      //   "Location": "http://" + req.headers['host'] + '/queryProduct.html'
+      // });
+      // res.write("<h1>fuck</h1>")
+      // console.log("here");
+      // fs.readFile('views/queryProduct.html', 'utf8', (err, data) =>{
+        // console.log(data);
+        // if(err){
+          // console.log(err);
+        // }
+        // return data;
+        // res.write(data);
+        // console.log(res);
+      // });
+
+      // return new Promise((resolve, reject) => {
+      //   resolve({"success": "success"});
+      // });
+
     }
   } else if (method === 'POST') {
 
@@ -34,8 +58,7 @@ function handleRequest(req, res) {
     } else if (urlObj.pathname === '/addProduct') {
       let resultData = addProduct(req.body);
       return resultData;
-    }
-    else if (urlObj.pathname === '/addToCart') {
+    } else if (urlObj.pathname === '/addToCart') {
       let resultData = addToCart(req.body);
       return resultData;
     }

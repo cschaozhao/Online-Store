@@ -12,7 +12,6 @@ module.exports = {
       customer_cata
     } = urlParams;
     params = []
-    console.log(urlParams);
     let sql = "select * from products where 1=1";
 
     if (product_name) {
