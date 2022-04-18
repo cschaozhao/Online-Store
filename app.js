@@ -71,7 +71,27 @@ const webServer = http.createServer((req, res) => {
   let urlObj = url.parse(req.url, true);
   let method = req.method;
 
-  if (urlObj.pathname === '/' && method == 'GET') {
+  if(urlObj.pathname === '/'){
+    res.writeHead(200, {
+      'content-type': 'text/html'
+    });
+    fs.readFile('public/welcome.html', 'utf8', (err, data) => {
+      if (err) {
+        console.log(err);
+      }
+      res.end(data);
+    });
+  } else if(urlObj.pathname === '/addaProduct'){
+    res.writeHead(200, {
+      'content-type': 'text/html'
+    });
+    fs.readFile('public/add.html', 'utf8', (err, data) => {
+      if (err) {
+        console.log(err);
+      }
+      res.end(data);
+    });
+  }else if (urlObj.pathname === '/searchProduct' && method == 'GET') {
     res.writeHead(200, {
       'content-type': 'text/html'
     });
