@@ -29,7 +29,6 @@ const getPostData = (req) => {
   });
 }
 
-
 function render(req, res, resultData) {
 
   const regExpEmployees = new RegExp('^\/employees\/.*', 'i');
@@ -68,74 +67,26 @@ function render(req, res, resultData) {
 
 
 const webServer = http.createServer((req, res) => {
+
   let urlObj = url.parse(req.url, true);
   let method = req.method;
 
-  if(urlObj.pathname === '/'){
-    res.writeHead(200, {
-      'content-type': 'text/html'
-    });
-    fs.readFile('public/welcome.html', 'utf8', (err, data) => {
-      if (err) {
-        console.log(err);
-      }
-      res.end(data);
-    });
-  } else if(urlObj.pathname === '/addaProduct'){
-    res.writeHead(200, {
-      'content-type': 'text/html'
-    });
-    fs.readFile('public/add.html', 'utf8', (err, data) => {
-      if (err) {
-        console.log(err);
-      }
-      res.end(data);
-    });
-  }else if (urlObj.pathname === '/searchProduct' && method == 'GET') {
-    res.writeHead(200, {
-      'content-type': 'text/html'
-    });
-    fs.readFile('public/searchProducts.html', 'utf8', (err, data) => {
-      if (err) {
-        console.log(err);
-      }
-      res.end(data);
-    });
+  getPostData(req).then(function(data) {
 
-  } else if (req.url.match(/.css$/)) {
-    let cssPath = path.join(__dirname, "public/css", req.url);
-    let cssReadStream = fs.createReadStream(cssPath, "UTF-8");
-    res.statusCode = 200;
-    res.setHeader("Content-Type", "text/css");
-    cssReadStream.pipe(res);
+    req.body = data;
+    let result = router(req, res);
 
-  } else if (req.url.match(/.js$/)) {
-    let jsPath = path.join(__dirname, "public", req.url);
-    let jsReadStream = fs.createReadStream(jsPath, "UTF-8");
-    res.statusCode = 200;
-    res.setHeader("Content-Type", "application/javascript");
-    cssReadStream.pipe(res);
+    if (result) {
+      result.then(resultData => {
+        render(req, res, resultData);
+      });
 
-  } else {
-    res.writeHead(301, {
-      'content-type': 'application/json;charset=UTF-8'
-    });
-    getPostData(req).then(function(data) {
-      req.body = data;
-      let result = router(req, res);
-      if (result) {
-        result.then(resultData => {
-          render(req, res, resultData);
-        });
+    } else {
+      render(req, res, {});
+    }
 
-      } else {
-        res.writeHead(404, {
-          'content-type': 'text/html'
-        });
-        res.end('404 not found');
-      }
-    });
-  }
+  });
+
 });
 
 webServer.listen(port, function() {

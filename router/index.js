@@ -17,64 +17,77 @@ const {
 
 function handleRequest(req, res) {
 
-
   let urlObj = url.parse(req.url, true);
   let method = req.method;
 
-  if (method === 'GET') {
-    if (urlObj.pathname === '/showProducts') {
-      let resultData = getProductList(urlObj.query);
-      return resultData;
+  if (req.url.match(/.css$/)) {
+    let cssPath = path.join(__dirname, "../public/css", req.url);
+    let cssReadStream = fs.createReadStream(cssPath, "UTF-8");
+    res.statusCode = 200;
+    res.setHeader("Content-Type", "text/css");
+    cssReadStream.pipe(res);
 
-    } else if (urlObj.pathname === '/') {
-      // res.writeHead(301, {
-      //   "Location": "http://" + req.headers['host'] + '/queryProduct.html'
-      // });
-      // res.write("<h1>fuck</h1>")
-      // console.log("here");
-      // fs.readFile('views/queryProduct.html', 'utf8', (err, data) =>{
-        // console.log(data);
-        // if(err){
-          // console.log(err);
-        // }
-        // return data;
-        // res.write(data);
-        // console.log(res);
-      // });
+  } else if (req.url.match(/.js$/)) {
+    let jsPath = path.join(__dirname, "../public/js", req.url);
+    let jsReadStream = fs.createReadStream(jsPath, "UTF-8");
+    res.statusCode = 200;
+    res.setHeader("Content-Type", "application/javascript");
+    cssReadStream.pipe(res);
 
-      // return new Promise((resolve, reject) => {
-      //   resolve({"success": "success"});
-      // });
+  } else if (urlObj.pathname === '/' && method === 'GET') {
+    res.writeHead(200, {
+      'content-type': 'text/html'
+    });
+    fs.readFile('public/welcome.html', 'utf8', (err, data) => {
+      if (err) {
+        console.log(err);
+      }
+      res.end(data);
+    });
 
-    }
-  } else if (method === 'POST') {
+  } else if (urlObj.pathname === '/addaProduct' && method === 'POST') {
+    res.writeHead(200, {
+      'content-type': 'text/html'
+    });
+    fs.readFile('public/add.html', 'utf8', (err, data) => {
+      if (err) {
+        console.log(err);
+      }
+      res.end(data);
+    });
 
-    if (urlObj.pathname === '/deleteProduct') {
-      let resultData = deleteProduct(urlObj.query.id);
-      return resultData;
-    } else if (urlObj.pathname === '/updateProduct') {
-      let resultData = updateProduct(urlObj.query.id, req.body);
-      return resultData;
-    } else if (urlObj.pathname === '/addProduct') {
-      let resultData = addProduct(req.body);
-      return resultData;
-    } else if (urlObj.pathname === '/addToCart') {
-      let resultData = addToCart(req.body);
-      return resultData;
-    }
-  } else if (method === 'DELETE') {
-    if (urlObj.pathname === '/') {
-      console.log("a");
-    } else if (urlObj.pathname === '/') {
-      console.log('b');
-    }
-  } else {
-    if (urlObj.pathname === '/') {
-      console.log('c');
-    } else if (urlObj.pathname === '/') {
-      console.log('d');
-    }
+  } else if (urlObj.pathname === '/searchProduct' && method == 'GET') {
+    res.writeHead(200, {
+      'content-type': 'text/html'
+    });
+    fs.readFile('public/searchProducts.html', 'utf8', (err, data) => {
+      if (err) {
+        console.log(err);
+      }
+      res.end(data);
+    });
+
+  } else if (urlObj.pathname === '/showProducts' && method === 'GET') {
+    let resultData = getProductList(urlObj.query);
+    return resultData;
+
+  } else if (urlObj.pathname === '/deleteProduct' && method === 'POST') {
+    let resultData = deleteProduct(urlObj.query.id);
+    return resultData;
+
+  } else if (urlObj.pathname === '/updateProduct' && method === 'POST') {
+    let resultData = updateProduct(urlObj.query.id, req.body);
+    return resultData;
+
+  } else if (urlObj.pathname === '/addProduct' && method === 'POST') {
+    let resultData = addProduct(req.body);
+    return resultData;
+
+  } else if (urlObj.pathname === '/addToCart' && method === 'POST') {
+    let resultData = addToCart(req.body);
+    return resultData;
   }
+
 }
 
 module.exports = handleRequest;
