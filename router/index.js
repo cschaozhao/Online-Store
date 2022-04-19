@@ -32,7 +32,14 @@ function handleRequest(req, res) {
     let jsReadStream = fs.createReadStream(jsPath, "UTF-8");
     res.statusCode = 200;
     res.setHeader("Content-Type", "application/javascript");
-    cssReadStream.pipe(res);
+    jsReadStream.pipe(res);
+
+  } else if (req.url.match(/.jpg$/) || req.url.match(/.png$/)) {
+    let imgPath = path.join(__dirname, "../public/images", req.url);
+    let imgReadStream = fs.createReadStream(imgPath, "UTF-8");
+    res.statusCode = 200;
+    res.setHeader("Content-Type", "image/jpg");
+    imgReadStream.pipe(res);
 
   } else if (urlObj.pathname === '/' && method === 'GET') {
     res.writeHead(200, {
@@ -45,7 +52,7 @@ function handleRequest(req, res) {
       res.end(data);
     });
 
-  } else if (urlObj.pathname === '/addaProduct' && method === 'POST') {
+  } else if (urlObj.pathname === '/addProduct' && method === 'GET') {
     res.writeHead(200, {
       'content-type': 'text/html'
     });
