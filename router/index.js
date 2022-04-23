@@ -6,7 +6,8 @@ const {
   getProductList,
   addProduct,
   updateProduct,
-  deleteProduct
+  deleteProduct,
+  getProductDetails
 } = require("../controller/product")
 
 const {
@@ -74,6 +75,10 @@ function handleRequest(req, res) {
 
   } else if (urlObj.pathname === '/showProducts' && method === 'GET') {
     let resultData = getProductList(urlObj.query);
+    return resultData;
+
+  } else if(urlObj.pathname === '/productdetail' && method === 'GET'){
+    let resultData = getProductDetails(urlObj.query);
     return resultData;
 
   } else if (urlObj.pathname === '/deleteProduct' && method === 'POST') {

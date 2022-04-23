@@ -16,7 +16,7 @@ module.exports = {
 
     if (product_name) {
       sql += " and product_name like ?";
-      params.push("%"+product_name+"%");
+      params.push("%" + product_name + "%");
     }
     if (price_low) {
       sql += " and price>=?";
@@ -26,15 +26,15 @@ module.exports = {
       sql += " and price<=?";
       params.push(price_high);
     }
-    if(size){
+    if (size) {
       sql += " and size=?";
       params.push(size);
     }
-    if(catagory){
+    if (catagory) {
       sql += " and catagory=?"
       params.push(catagory);
     }
-    if(customer_cata){
+    if (customer_cata) {
       sql += " and customer_cata=?"
       params.push(customer_cata);
     }
@@ -43,7 +43,7 @@ module.exports = {
   },
 
   async addProduct(productObj) {
-    let{
+    let {
       product_name,
       description,
       SKU,
@@ -56,15 +56,14 @@ module.exports = {
     } = productObj;
 
     let sql = "insert into products( product_name, description, SKU, catagory, price, stock, size, reviews, customer_cata) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?)"
-    let resultData = await query(sql, [ product_name,description, SKU, catagory, price, stock, size, reviews, customer_cata]);
-    if(resultData){
-      return{
-        msg:'Success'
+    let resultData = await query(sql, [product_name, description, SKU, catagory, price, stock, size, reviews, customer_cata]);
+    if (resultData) {
+      return {
+        msg: 'Success'
       }
-    }
-    else{
-      return{
-        msg:"Fail"
+    } else {
+      return {
+        msg: "Fail"
       }
     }
   },
@@ -100,5 +99,15 @@ module.exports = {
         msg: "Fail"
       }
     }
-  }
+  },
+
+  async getProductDetails(urlParams) {
+    let {
+      product_id
+    } = urlParams;
+    let sql = "select * from products where product_id = ?";
+    let resultData = await query(sql, [product_id]);
+    return resultData;
+  },
+
 };

@@ -8,8 +8,9 @@ for(let cell of cells){
     let contents = cell.innerHTML + "";
     console.log(contents);
     let length = contents.indexOf('<br>');
-    let name = contents.substr(0, length);
-    const url = path + "productdetail?product_name=" + name;
+    let id = contents.substr(0, length);
+    const url = path + "productdetail?product_id=" + id;
+    console.log(url);
     window.location.href = url;
   });
 }
