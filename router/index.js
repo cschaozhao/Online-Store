@@ -2,7 +2,6 @@ const url = require("url");
 const fs = require("fs");
 const path = require("path");
 
-
 const {
   getProductList,
   addProduct,
@@ -14,13 +13,12 @@ const {
   addToCart
 } = require("../controller/cart")
 
-
 function handleRequest(req, res) {
 
   let urlObj = url.parse(req.url, true);
   let method = req.method;
 
-  if (req.url.match(/.css$/)) {
+  if (req.url.match(/style.css$/)) {
     let cssPath = path.join(__dirname, "../public/css", req.url);
     let cssReadStream = fs.createReadStream(cssPath, "UTF-8");
     res.statusCode = 200;
@@ -36,9 +34,9 @@ function handleRequest(req, res) {
 
   } else if (req.url.match(/.jpg$/) || req.url.match(/.png$/)) {
     let imgPath = path.join(__dirname, "../public/images", req.url);
-    let imgReadStream = fs.createReadStream(imgPath, "UTF-8");
+    let imgReadStream = fs.createReadStream(imgPath);
     res.statusCode = 200;
-    res.setHeader("Content-Type", "image/jpg");
+    res.setHeader("Content-Type", "image/png");
     imgReadStream.pipe(res);
 
   } else if (urlObj.pathname === '/' && method === 'GET') {

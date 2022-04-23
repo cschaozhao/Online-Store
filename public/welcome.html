@@ -1,14 +1,115 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="style.css">
-    <title>Welcome to the store</title>
-  </head>
-  <body>
-    <h1>Welcome</h1>
-    <a href="/searchProduct">search products</a>
-    <br>
-    <a href="/addProduct">add a product</a>
-  </body>
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <title>Online store-Group 1</title>
+</head>
+
+<body>
+  <div class="frame">
+    <div class="member-login">
+
+      <div class="login">
+        <a href="\signup">
+          <span style="color: black;">Sign up</span>
+        </a>
+        <span>|</span>
+        <a href="\login">
+          <span style="color: black;">Sign in</span>
+        </a>
+      </div>
+    </div>
+    <nav class="navbar">
+      <div class="container-nav cotainer-color">
+        <div class="navbar-header box1">
+          <p class="navbar-brand">Welcome</p>
+        </div>
+        <div class="box2">
+          <ul class="nav navbar-nav">
+            <li id="men"><a>Men</a></li>
+            <li id="women"><a>Women</a></li>
+            <li id="boys"><a>Boys</a></li>
+            <li id="girls"><a>Girls</a></li>
+          </ul>
+        </div>
+
+
+        <div class="search box3">
+          <form action="/showProducts" method="get">
+            <input type="text" name="product_name" placeholder="Search" style="border-radius: 8px; display: inline;">
+            <button type="submit" style="border-radius: 3px; background-color: aliceblue; width: 48px;"> search </button>
+          </form>
+        </div>
+
+        <div>
+
+        </div>
+
+      </div>
+
+    </nav>
+    <div class="page-content">
+      <div class="ads" style="text-align: center;">
+        <img style="max-width: 90%; align-self: center;" src="nike-just-do-it.jpg">
+      </div>
+    </div>
+
+    <div style="height: 40px; width: 100%;"></div>
+    <div class="brand">
+      <table style="text-align: center;" class="brandtable">
+        <tr>
+          <td>
+            <img src="nike.png" alt="" id="nike">
+          </td>
+          <td>
+            <img src="converse.png" alt="" id="converse">
+          </td>
+          <td>
+            <img src="adidas.png" alt="" id="adidas">
+          </td>
+          <td>
+            <img src="brooks.png" alt="" id="brooks">
+          </td>
+          <td>
+            <img src="under-armour.png" alt="" id="ua">
+          </td>
+          <td>
+            <img src="new.png" alt="" id="nb">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <img src="jordan.png" alt="" id="aj">
+          </td>
+          <td>
+            <img src="puma.png" alt="" id="puma">
+          </td>
+          <td><img src="asics.png" alt="" id="asics"></td>
+          <td>
+            <img src="timberland.png" alt="" id="timberland">
+          </td>
+          <td>
+            <img src="adidasper.png" alt="" id="performance">
+          </td>
+          <td>
+            <img src="vans.png" alt="" id="vans">
+          </td>
+        </tr>
+      </table>
+    </div>
+
+
+
+  </div>
+  <script src="homepage.js" charset="urf-8"></script>
+
+  <div class="footer-padding"></div>
+  <div class="footer">
+    <p> Made with ❤️ by Group 1</p>
+  </div>
+</body>
+
 </html>
