@@ -9,31 +9,7 @@ const router = require('./router/index');
 const url = require('url');
 const path = require('path');
 
-const getPostData = (req) => {
-  return new Promise((resolve, reject) => {
 
-    if (req.method !== 'POST') {
-      resolve({});
-      return;
-    }
-
-    let postData = '';
-
-    req.on('data', chunk => {
-      postData += chunk;
-    });
-
-    req.on('end', () => {
-      if (postData) {
-        resolve(JSON.parse(postData));
-      } else {
-        resolve({});
-      }
-    });
-
-  });
-
-}
 
 function render(req, res, resultData) {
 
@@ -140,13 +116,34 @@ function render(req, res, resultData) {
   }
 }
 
+const getPostData = (req) => {
+  return new Promise((resolve, reject) => {
+
+    if (req.method !== 'POST') {
+      resolve({});
+      return;
+    }
+
+    let postData = '';
+
+    req.on('data', chunk => {
+      postData += chunk;
+    });
+    
+    req.on('end', () => {
+      if (postData) {
+        resolve(JSON.parse(postData));
+      } else {
+        resolve({});
+      }
+    });
+
+  });
+
+}
+
 // 程序入口
 const webServer = http.createServer((req, res) => {
-
-  let urlObj = url.parse(req.url, true);
-  let method = req.method;
-
-  // post数据
 
   getPostData(req).then(function(data) {
 

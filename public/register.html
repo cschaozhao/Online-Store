@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+</head>
+
+<body>
+    <div style="margin: auto;">
+        <form action="/register" method="POST">
+
+            <table style="margin: auto; text-align: center; vertical-align: middle">
+                <tr>
+                    <td>
+                        <label>User name:</label>
+                    </td>
+                    <td>
+                        <input type="text" id="user_name">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Password:</label>
+                    </td>
+                    <td>
+                        <input type="text" id="password">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>E-mail:</label>
+                    </td>
+                    <td>
+                        <input type="email" id="email">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input value="Submit" type="button" onclick="register()">
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <script type="text/javascript">
+
+            function sendHttpRequest(method, url, data){
+                return fetch(url,{
+                    method: method,
+                    body: JSON.stringify(data),
+                    headers: data ? {'Content-Type': 'application/json'}:{}
+                }).then(response =>{
+                    if(response.status >= 400){
+                        alert("The username has been taken!")
+                        return response.json().then(errResData =>{
+                            const error = new Error('something went wrong!');
+                            error.data = errResData;
+                            throw error;
+                        });
+                    }else{
+                        window.location.href="/login";
+                    }
+
+                    return response.json();
+                });
+            }
+
+            function register(){
+                const user_name = document.getElementById("user_name").value;
+                const password = document.getElementById("password").value;
+                const email = document.getElementById("email").value;
+
+                const data = {
+                    'user_name': user_name,
+                    'password' : password,
+                    'email': email
+                }
+
+                sendHttpRequest('POST', '/register', data).then(responseData => {
+                    console.log(responseData);
+                }).catch(err => {
+                    console.log(err, err.data);
+                });
+            }
+
+        </script>
+    </div>
+</body>
+
+</html>

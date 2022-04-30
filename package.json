@@ -14,6 +14,7 @@
     "http": "^0.0.1-security",
     "lodash": "^4.17.21",
     "mysql": "^2.18.1",
+    "nodemon": "^2.0.16",
     "querystring": "^0.2.1",
     "request": "^2.88.2"
   }

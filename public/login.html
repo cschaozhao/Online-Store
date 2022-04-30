@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
+</head>
+
+<body>
+    <div style="margin: auto;">
+        <form action="/login" method="POST">
+
+            <table style="margin: auto; text-align: center; vertical-align: middle">
+                <tr>
+                    <td>
+                        <label>User name:</label>
+                    </td>
+                    <td>
+                        <input type="text" id="user_name">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Password:</label>
+                    </td>
+                    <td>
+                        <input type="text" id="password">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input value="Login" type="button" onclick="login()">
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <script type="text/javascript">
+
+
+
+            function sendHttpRequest(method, url, data) {
+                const user_name = document.getElementById("user_name").value;
+                return fetch(url, {
+                    method: method,
+                    body: JSON.stringify(data),
+                    headers: data ? { 'Content-Type': 'application/json' } : {}
+                }).then(response => {
+                    if (response.status >= 400) {
+                        alert("user not exist or wrong password!")
+                        return response.json().then(errResData => {
+                            const error = new Error('something went wrong!');
+                            error.data = errResData;
+                            throw error;
+                        });
+                    } else {
+                        document.cookie = "username=" + user_name;
+                        window.location.href = "/";
+                    }
+                    return response.json();
+                });
+            }
+
+            function login() {
+                const user_name = document.getElementById("user_name").value;
+                const password = document.getElementById("password").value;
+                const data = {
+                    'user_name': user_name,
+                    'password': password
+                }
+                sendHttpRequest('POST', '/login', data).then(responseData => {
+                    console.log(responseData);
+                }).catch(err => {
+                    console.log(err, err.data);
+                });
+            }
+
+        </script>
+    </div>
+</body>
+
+</html>

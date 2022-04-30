@@ -1,6 +1,13 @@
 
 const path = window.location.href;
 
+const user_info = document.cookie.split(";")[1].split("=")[1]; ;
+
+var login = document.getElementById("login-part");
+if(user_info.length > 0){
+  login.innerHTML = "Welcome, <a href='/personalPage'>"+user_info+"</a>";
+}
+
 var nike = document.getElementById('nike').addEventListener("click", () => {
   const url = path + "showProducts?product_name=nike";
   window.location.href = url;

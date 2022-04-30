@@ -12,7 +12,13 @@ const {
 
 const {
   addToCart
-} = require("../controller/cart")
+} = require("../controller/cart");
+
+const {
+  registerUser,
+  login_verify
+} = require("../controller/user");
+const { log } = require("console");
 
 function handleRequest(req, res) {
 
@@ -77,11 +83,75 @@ function handleRequest(req, res) {
     let resultData = getProductList(urlObj.query);
     return resultData;
 
-  } else if(urlObj.pathname === '/productdetail' && method === 'GET'){
+  } else if (urlObj.pathname === '/productdetail' && method === 'GET') {
     let resultData = getProductDetails(urlObj.query);
     return resultData;
 
-  } else if (urlObj.pathname === '/deleteProduct' && method === 'POST') {
+  } else if (urlObj.pathname === '/register') {
+    if (method == 'GET') {
+      res.writeHead(200, {
+        'content-type': 'text/html'
+      });
+      fs.readFile('public/register.html', 'utf8', (err, data) => {
+        if (err) {
+          console.log(err);
+        }
+        res.end(data);
+      });
+    } else if (method == 'POST') {
+      let resultData = registerUser(req.body);
+      resultData.then(data => {
+        if (data === 'success') {
+          res.writeHead(200, {
+            'content-type': 'text/html'
+          });
+          res.end();
+        } else {
+          res.writeHead(500, {
+            'content-type': 'text/html'
+          });
+          res.end();
+        }
+      });
+    }
+  } else if (urlObj.pathname === '/login') {
+    if (method == 'GET') {
+      res.writeHead(200, {
+        'content-type': 'text/html'
+      });
+      fs.readFile('public/login.html', 'utf8', (err, data) => {
+        if (err) {
+          console.log(err);
+        }
+        res.end(data);
+      });
+    } else if (method == 'POST') {
+      let resultData = login_verify(req.body);
+      resultData.then(data => {
+        if(data === 'fail'){
+          res.writeHead(500, {
+            'content-type': 'text/html'
+          });
+          res.end();
+        }else if(data === 'success'){
+          res.writeHead(200, {
+            'content-type': 'text/html'
+          });
+          res.end();
+        }
+      });
+    }
+  }
+
+
+
+
+
+
+
+
+
+  else if (urlObj.pathname === '/deleteProduct' && method === 'POST') {
     let resultData = deleteProduct(urlObj.query.id);
     return resultData;
 
