@@ -35,3 +35,10 @@ var girls = document.getElementById('girls').addEventListener("click", () => {
   const url = path + "showProducts?customer_cata=Girls";
   window.location.href = url;
 });
+
+const user_info = document.cookie.split(";")[1].split("=")[1];
+
+var login = document.getElementById("login-part");
+if (user_info.length > 0) {
+    login.innerHTML = "Welcome, <a href='/personalPage'>" + user_info + "</a>";
+}

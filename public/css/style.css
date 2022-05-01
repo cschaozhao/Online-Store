@@ -239,7 +239,8 @@ table thead tr:hover {
   border-radius: 4px;
 }
 
-.btn-xs, .btn-group-xs>.btn {
+.btn-xs,
+.btn-group-xs>.btn {
   padding: 1px 5px;
   font-size: 12px;
   line-height: 1.5;
@@ -251,101 +252,115 @@ table thead tr:hover {
 }
 
 
-.login{
-	padding-right: 12px;
-	float:right;
-	font-style: italic;
-	font-weight: 500;
-	
+.login {
+  padding-right: 12px;
+  float: right;
+  font-style: italic;
+  font-weight: 500;
+
 }
-.member-login{
-	width: 90%;
-	height: 10px;
-	margin-top: 2%;
+
+.member-login {
+  width: 90%;
+  height: 10px;
+  margin-top: 2%;
 }
 
 .footer-padding {
-	padding-bottom: 60px;
+  padding-bottom: 80px;
+}
+
+.frame {
+  position: relative;
+  width: 100%;
+  min-height: 100%;
+  padding-bottom: 60px;
+  box-sizing: border-box;
+
 }
 
 .footer {
-	position: absolute;
-	text-align: center;
-	/* bottom: 0%; */
-	width: 100%;
-	height: 60px;
-	background-color: #428bca;
+  flex: 0 0 auto;
+  position: absolute;
+  text-align: center;
+  bottom: 0px;
+  width: 100%;
+  height: 60px;
+  background-color: #428bca;
 }
+
 .footer p {
-	margin-top: 25px;
-	font-size: 12px;
-	color: #fff;
+  margin-top: 25px;
+  font-size: 12px;
+  color: #fff;
 }
 
 .navbar {
-    padding-top: 15px;
-    padding-bottom: 15px;
-    border: 0;
-    border-radius: 0;
-    margin-bottom: 0;
-    font-size: 12px;
-    letter-spacing: 5px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border: 0;
+  border-radius: 0;
+  margin-bottom: 0;
+  font-size: 12px;
+  letter-spacing: 5px;
 }
-.navbar-nav  li a:hover {
-    color: #1abc9c !important;
+
+.navbar-nav li a:hover {
+  color: #1abc9c !important;
 }
 
 
 .container-fluid {
-    padding-top: 70px;
-    padding-bottom: 70px;
+  padding-top: 70px;
+  padding-bottom: 70px;
 }
 
-.cotainer-color{
-	height: 48px;
-	background-color: #e5e5e5;
+.cotainer-color {
+  height: 48px;
+  background-color: #e5e5e5;
 }
-.search{
-	float: right;
-	padding-right: 3%;
-	padding-top: 13px;
+
+.search {
+  float: right;
+  padding-right: 3%;
+  padding-top: 13px;
 }
 
 input::-webkit-input-placeholder {
-    font-size: 12px;
-    text-align: center;
+  font-size: 12px;
+  text-align: center;
 }
 
 input {
-    border: 1px solid lightblue;
-	height: 25px;
+  border: 1px solid lightblue;
+  height: 25px;
 }
 
 .box1 {
-	float: left;
-	display: inline;
-	padding-left: 5%;
+  float: left;
+  display: inline;
+  padding-left: 5%;
 }
 
 .box2 {
-	margin: 0 auto;
-	position: relative;
-	display: inline;
-	padding-left: 8%;
+  margin: 0 auto;
+  position: relative;
+  display: inline;
+  padding-left: 8%;
 }
 
 .box3 {
-	float: right;
-	display: inline;
-	padding-left: 8%;
+  float: right;
+  display: inline;
+  padding-left: 8%;
 }
 
-.brand{
-	width: 100%;
-	text-align: center;
-	margin: auto;
+.brand {
+  width: 100%;
+  text-align: center;
+  margin: auto;
 }
 
-.brandtable{
-	margin: auto;
+.brandtable {
+  margin: auto;
 }

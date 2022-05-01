@@ -128,12 +128,12 @@ function handleRequest(req, res) {
     } else if (method == 'POST') {
       let resultData = login_verify(req.body);
       resultData.then(data => {
-        if(data === 'fail'){
+        if (data === 'fail') {
           res.writeHead(500, {
             'content-type': 'text/html'
           });
           res.end();
-        }else if(data === 'success'){
+        } else if (data === 'success') {
           res.writeHead(200, {
             'content-type': 'text/html'
           });
@@ -141,12 +141,22 @@ function handleRequest(req, res) {
         }
       });
     }
+  } else if (urlObj.pathname === '/addToCart' && method === 'POST') {
+    let resultData = addToCart(req.body);
+    resultData.then(data => {
+      if (data === 'fail') {
+        res.writeHead(500, {
+          'content-type': 'text/html'
+        });
+        res.end();
+      } else if (data === 'success') {
+        res.writeHead(200, {
+          'content-type': 'text/html'
+        });
+        res.end();
+      }
+    });
   }
-
-
-
-
-
 
 
 
@@ -163,9 +173,6 @@ function handleRequest(req, res) {
     let resultData = addProduct(req.body);
     return resultData;
 
-  } else if (urlObj.pathname === '/addToCart' && method === 'POST') {
-    let resultData = addToCart(req.body);
-    return resultData;
   }
 
 }
