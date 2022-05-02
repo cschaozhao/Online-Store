@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <title>Member Page</title>
+</head>
+
+<body>
+    <div class="frame">
+        <div class="member-login">
+            <div class="login" id="login-part">
+                <a href="/register">
+                    <span style="color: black;">Sign up</span>
+                </a>
+                <span>|</span>
+                <a href="\login">
+                    <span style="color: black;">Sign in</span>
+                </a>
+            </div>
+        </div>
+        <nav class="navbar">
+            <div class="container-nav cotainer-color">
+                <div class="navbar-header box1">
+                    <p class="navbar-brand">Welcome</p>
+                </div>
+                <div class="box2">
+                    <ul class="nav navbar-nav">
+                        <li id="men"><a>Men</a></li>
+                        <li id="women"><a>Women</a></li>
+                        <li id="boys"><a>Boys</a></li>
+                        <li id="girls"><a>Girls</a></li>
+                    </ul>
+                </div>
+                <div class="search box3">
+                    <form action="/showProducts" method="get">
+                        <input type="text" name="product_name" placeholder="Search"
+                            style="border-radius: 8px; display: inline;">
+                        <button type="submit" style="border-radius: 3px; background-color: aliceblue; width: 48px;">
+                            search
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+
+        <div class="cart-order-container">
+            <table style="width: 90%; height: 800px;">
+                <tr>
+                    <td>
+                        <div id="cart" class="cart">
+                            <!-- <button id="showCart" style="margin-top: 15px; margin-bottom: 20px;"> Show cart </button> -->
+                            <!-- <input type="button" value="  Show Cart  " id="showCart"
+                                style="margin-top: 15px; margin-bottom: 20px;"> -->
+                            <h3 style="margin-top: 10px; font-style: italic; padding-top: 20px;">Cart</h3>
+                            <table id="cart-content"
+                                style="margin: auto; text-align: center; vertical-align: middle; background: rgb(248, 197, 138); width: 75%;">
+
+                            </table>
+                            <div style="vertical-align: bottom;">
+                                <input type="button" value="  Place Order  " id="placeOrder" style="margin-top: 100px;">
+                                <input type="button" value="  Empty Cart  " id="emptyCart" style="margin-top: 100px;">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div id="order" class="order">
+                            <h3 style="margin-top: 10px; font-style: italic; padding-top: 20px;">History orders</h3>
+                            <table id="orders-content"
+                                style="margin: auto; text-align: center; vertical-align: middle; background: rgb(199, 147, 198); width: 70%; margin-top: 30px;">
+
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="order-detail">
+                            <h3 style="margin-top: 10px; font-style: italic; padding-top: 20px;">Order detail</h3>
+                            <table id="order_detail"
+                                style="margin: auto; text-align: center; vertical-align: middle; background: rgb(247, 130, 132); width: 80%; margin-top: 30px;">
+
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+
+
+        </div>
+
+    </div>
+
+    <script src="memberPage.js" charset="urf-8"></script>
+
+    <div class="footer-padding"></div>
+    <div class="footer">
+        <p> Made with ❤️ by Group 1</p>
+    </div>
+</body>
+
+</html>

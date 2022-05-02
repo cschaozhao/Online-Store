@@ -2,14 +2,14 @@ const query = require('../db/conn');
 
 module.exports = {
 
-  async addToCart(productObj) {
+  async addToCart(cartObj) {
     let {
       user_name,
       product_name,
       SKU,
       size,
       price,
-    } = productObj;
+    } = cartObj;
 
     let check_stock_sql = "select stock from products where product_name=?";
     let checkResult = await query(check_stock_sql, [product_name]);
@@ -41,5 +41,33 @@ module.exports = {
         return "fail";
       }
     }
+  },
+
+  async showCartItems(urlParams) {
+    let {
+      user_name
+    } = urlParams;
+    let sql = "select * from carts where user_name=?"
+    let resultData = await query(sql, [user_name]);
+    return resultData;
+  },
+
+  async updateCart() {
+
+  },
+
+  async cleanCart(cartObj) {
+    let {
+      user_name,
+      product_name,
+      retail_price,
+      product_quantity,
+      SKU,
+      product_size,
+      total_price
+    } = cartObj;
+    sql = "delete from carts where user_name=?";
+    await query(sql,[user_name]);
   }
+
 };

@@ -11,14 +11,22 @@ const {
 } = require("../controller/product")
 
 const {
-  addToCart
+  addToCart,
+  showCartItems,
+  cleanCart,
+  updateCart
 } = require("../controller/cart");
 
 const {
   registerUser,
   login_verify
 } = require("../controller/user");
-const { log } = require("console");
+
+const {
+  placeOrder,
+  showOrders,
+  showOrderDetail
+} = require("../controller/order")
 
 function handleRequest(req, res) {
 
@@ -156,6 +164,84 @@ function handleRequest(req, res) {
         res.end();
       }
     });
+  } else if (urlObj.pathname === '/personalPage' && method === 'GET') {
+    res.writeHead(200, {
+      'content-type': 'text/html'
+    });
+    fs.readFile('public/memberPage.html', 'utf8', (err, data) => {
+      if (err) {
+        console.log(err);
+      }
+      res.end(data);
+    });
+  } else if (urlObj.pathname === '/showCart' && method === 'GET') {
+    let resultData = showCartItems(urlObj.query);
+    if (resultData) {
+      resultData.then(data => {
+        let cart_content = JSON.stringify(data);
+        res.writeHead(200, {
+          'content-type': 'application/json'
+        });
+        res.end(cart_content);
+      });
+
+    } else {
+      res.writeHead(400, {
+        'content-type': 'application/json'
+      });
+      res.end();
+    }
+  } else if (urlObj.pathname === '/placeOrder' && method === 'POST') {
+
+    let resultData_1 = placeOrder(req.body);
+    let resultData_2 = cleanCart(req.body);
+    resultData_1.then(data => {
+      console.log(data);
+    });
+    res.writeHead(200, {
+      'content-type': 'application/json'
+    });
+    res.end();
+  } else if (urlObj.pathname === "/showOrders" && method === 'GET') {
+    let resultData = showOrders(urlObj.query);
+    if (resultData) {
+      resultData.then(data => {
+        let orders = JSON.stringify(data);
+        res.writeHead(200, {
+          'content-type': 'application/json'
+        });
+        res.end(orders);
+      });
+
+    } else {
+      res.writeHead(400, {
+        'content-type': 'application/json'
+      });
+      res.end();
+    }
+  } else if (urlObj.pathname === '/orderDetail' && method === 'GET') {
+    let resultData = showOrderDetail(urlObj.query);
+    if (resultData) {
+      resultData.then(data => {
+        let order_detail = JSON.stringify(data);
+        res.writeHead(200, {
+          'content-type': 'application/json'
+        });
+        res.end(order_detail);
+      });
+
+    } else {
+      res.writeHead(400, {
+        'content-type': 'application/json'
+      });
+      res.end();
+    }
+  } else if (urlObj.pathname === '/emptyCart' && method === 'POST') {
+    let resultData = cleanCart(req.body);
+    res.writeHead(200, {
+      'content-type': 'application/json'
+    });
+    res.end();
   }
 
 

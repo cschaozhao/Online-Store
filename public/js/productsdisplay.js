@@ -36,7 +36,9 @@ var girls = document.getElementById('girls').addEventListener("click", () => {
   window.location.href = url;
 });
 
-const user_info = document.cookie.split(";")[1].split("=")[1];
+// const user_info = document.cookie.split(";")[1].split("=")[1];
+const user_info = document.cookie.split("=")[1];
+
 
 var login = document.getElementById("login-part");
 if (user_info.length > 0) {
